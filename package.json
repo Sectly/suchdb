@@ -1,0 +1,32 @@
+{
+  "name": "@sectly-studios/suchdb",
+  "version": "1.0.7",
+  "description": "An simple, dependency free, require & go node.js and browser database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sectly/suchdb.git"
+  },
+  "keywords": [
+    "db",
+    "database",
+    "data",
+    "storage",
+    "json",
+    "node",
+    "node.js",
+    "browser",
+    "file",
+    "simple",
+    "dependency free"
+  ],
+  "author": "Sectly@sectly.online",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Sectly/suchdb/issues"
+  },
+  "homepage": "https://github.com/Sectly/suchdb#readme"
+}
