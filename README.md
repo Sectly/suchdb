@@ -1,5 +1,7 @@
 # SuchDB: An simple, dependency free, require & go node.js and browser database
 
+### Install: `npm i @sectly-studios/suchdb` | (https://www.npmjs.com/package/@sectly-studios/suchdb)
+
 ## Quick Start:
 
 ```js
