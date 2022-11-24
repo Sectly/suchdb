@@ -78,6 +78,21 @@ let SuchDB = require("@sectly-studios/suchdb");
 let database = new SuchDB.SuchDB();
 ```
 
+### Options/Config:
+
+```js
+let SuchDB = require("@sectly-studios/suchdb").SuchDB({
+   master: "data",
+   autosave: true,
+   autoload: false,
+   encrypt: {
+     enabled: true,
+     key: "SuchDB_Key",
+   },
+   autobackup: true,
+});
+```
+
 ## set
 
 Set/Add Data To The Database
@@ -214,6 +229,19 @@ Sort the database
 database.sort(key, reverse)
 ```
 
+## port
+
+Port Json To The Database
+
+### Parameters
+
+*   `json` **any**&#x20;
+*   `overwrite` **[boolean][32]**&#x20;
+
+```js
+database.port(json, overwrite)
+```
+
 ## save
 
 Save Database To:
@@ -232,10 +260,40 @@ Load Database From:
 > localStorage
 > node-fs
 
+### Parameters
+*   `overwrite` **[boolean][32]**&#x20;
+
 ```js
 let overwrite = false;
 
 database.load(overwrite)
+```
+
+## save
+
+Save Database Backup To:
+
+> localStorage
+> node-fs
+
+```js
+database.saveBackup()
+```
+
+## load
+
+Load Database Backup From:
+
+> localStorage
+> node-fs
+
+### Parameters
+*   `overwrite` **[boolean][32]**&#x20;
+
+```js
+let overwrite = false;
+
+database.loadBackup(overwrite)
 ```
 
 ## raw
@@ -251,14 +309,15 @@ database.raw() // Returns object
 SuchDB
 
 ```js
-let options = {
-  master: "data",
-  autosave: true,
-  autoload: false,
-  encrypt: {
-    enabled: true,
-    key: "SuchDB_Key",
-  },
+var options = {
+   master: "data",
+   autosave: true,
+   autoload: false,
+   encrypt: {
+     enabled: true,
+     key: "SuchDB_Key",
+   },
+   autobackup: true,
 };
 
 let database = new SuchDB.SuchDB(options);
@@ -280,6 +339,7 @@ var options = {
      enabled: true,
      key: "SuchDB_Key",
    },
+   autobackup: true,
 };
 ```
 
