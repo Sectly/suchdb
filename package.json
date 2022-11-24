@@ -1,6 +1,6 @@
 {
   "name": "@sectly-studios/suchdb",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "An simple, dependency free, require & go node.js and browser database",
   "main": "index.js",
   "scripts": {
