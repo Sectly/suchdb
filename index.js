@@ -429,8 +429,10 @@
 
     suchdb.find = function(query = {name : "", value : ""}) {
       suchdb.forEach((key, value) => {
-        if(key[name] == value) return key;
+        if(key[query.name] == query.value) return key;
       });
+
+      return null;
     }
 
     // Main Functions:
