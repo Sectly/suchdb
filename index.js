@@ -423,6 +423,16 @@
       return store || {};
     }
 
+    /**
+    * Find an entry
+    */
+
+    suchdb.find = function(query = {name : "", value : ""}) {
+      suchdb.forEach((key, value) => {
+        if(key[name] == value) return key;
+      });
+    }
+
     // Main Functions:
 
     Init();
