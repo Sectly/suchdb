@@ -1,0 +1,49 @@
+{
+  "name": "@sectly-studios/suchdb",
+  "version": "1.0.14",
+  "description": "An simple, dependency free, require & go node.js and browser database",
+  "author": "Sectly@sectly.online",
+  "license": "MPL-2.0",
+  "license_info": "This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.",
+  "bugs": {
+    "url": "https://github.com/Sectly/suchdb/issues"
+  },
+  "homepage": "https://github.com/Sectly/suchdb#readme",
+  "source": "./src/index.js",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "npm run bundle && npm run banner",
+    "bundle": "microbundle --visualize",
+    "banner": "bannerize dist/*{.js,.mjs} --banner=dev/banner.ejs",
+    "dev": "microbundle watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sectly/suchdb.git"
+  },
+  "keywords": [
+    "db",
+    "database",
+    "data",
+    "storage",
+    "json",
+    "node",
+    "node.js",
+    "browser",
+    "file",
+    "simple",
+    "dependency free"
+  ],
+  "devDependencies": {
+    "bannerize": "^1.1.4",
+    "microbundle": "^0.15.1"
+  }
+}
