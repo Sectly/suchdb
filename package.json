@@ -23,6 +23,7 @@
     "bundle": "microbundle --visualize",
     "banner": "bannerize dist/*{.js,.mjs} --banner=dev/banner.ejs",
     "dev": "microbundle watch",
+    "lint": "standard src/* --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -44,6 +45,7 @@
   ],
   "devDependencies": {
     "bannerize": "^1.1.4",
-    "microbundle": "^0.15.1"
+    "microbundle": "^0.15.1",
+    "standard": "*"
   }
 }
