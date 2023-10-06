@@ -1,6 +1,6 @@
 {
   "name": "@sectly-studios/suchdb",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "An simple, dependency free, require & go node.js and browser database",
   "author": "Sectly@sectly.online",
   "license": "MPL-2.0",
@@ -11,10 +11,10 @@
   "homepage": "https://github.com/Sectly/suchdb#readme",
   "source": "./src/index.js",
   "exports": {
-    "require": "./dist/index.cjs",
+    "require": "./dist/index.js",
     "default": "./dist/index.modern.js"
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.module.js",
   "unpkg": "./dist/index.umd.js",
   "types": "./dist/index.d.ts",
