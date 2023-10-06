@@ -1,5 +1,5 @@
 /**
-* @sectly-studios/suchdb | 1.0.14 (Sun Oct 01 2023)
+* @sectly-studios/suchdb | 1.0.15 (Fri Oct 06 2023)
 * An simple, dependency free, require &amp; go node.js and browser database
 * Auhtor: Sectly (Sectly@sectly.online)
 * Licence: MPL-2.0, This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -11,7 +11,7 @@
   'use strict'
 
   function SuchDBMaster (options, isNode) {
-    const version = 'V1.0.14'
+    const version = 'V1.0.15'
     const suchdb = {}
     let events = []
 
