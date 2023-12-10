@@ -1,5 +1,5 @@
 /**
-* @sectly-studios/suchdb | 1.0.15 (Fri Oct 06 2023)
+* @sectly-studios/suchdb | 1.0.16 (Sun Dec 10 2023)
 * An simple, dependency free, require &amp; go node.js and browser database
 * Auhtor: Sectly (Sectly@sectly.online)
 * Licence: MPL-2.0, This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -11,7 +11,7 @@
   'use strict'
 
   function SuchDBMaster (options, isNode) {
-    const version = 'V1.0.15'
+    const version = 'V1.0.16'
     const suchdb = {}
     let events = []
 
@@ -52,17 +52,19 @@
     suchdb.options = {
       master: getoption({ name: 'master', base: false }, nodeify('suchdb_data', 'data')),
       autosave: getoption({ name: 'autosave', base: false }, nodeify(false, true)),
-      autoload: getoption({ name: 'autoload', base: false }, nodeify(false, false)),
+      autoload: getoption({ name: 'autoload', base: false }, false),
       encrypt: {
         enabled: getoption({ name: 'enabled', base: 'encrypt' }, nodeify(false, true)),
         key: getoption({ name: 'key', base: 'encrypt' }, nodeify('SuchDB', 'SuchDB_Key'))
       },
-      autobackup: getoption({ name: 'autobackup', base: false }, nodeify(false, false)),
-      logging: getoption({ name: 'logging', base: false }, nodeify(false, false)),
-      logging_custom: getoption({ name: 'logging_custom', base: false }, nodeify(false, false))
+      autobackup: getoption({ name: 'autobackup', base: false }, false),
+      logging: getoption({ name: 'logging', base: false }, false),
+      logging_custom: getoption({ name: 'logging_custom', base: false }, () => { })
     }
 
     suchdb.isNode = isNode || false
+
+    suchdb.generateSID = (length) => Math.random().toString(36).substring(2, ((length || 8) + 2)) // SID = Simple ID
 
     if (suchdb.isNode) {
       suchdb.nodeDriver = {
@@ -186,6 +188,69 @@
         __log('Successfully loaded a backup of the database!')
       } catch (error) {
         console.log(error)
+      }
+    }
+
+    function __snapshot (options) {
+      const config = {
+        master: options.master || `snapshot_${suchdb.options.master || 'suchdb'}`,
+        decrypt: options.decrypt || false,
+        id: options.id || suchdb.generateSID(48)
+      }
+
+      try {
+        let snapshotData = store || { error: 'SuchDB Data Snapshot Error!' }
+
+        snapshotData.id = config.id || null
+
+        snapshotData = JSON.stringify(snapshotData) || ''
+
+        if (!config.decrypt && suchdb.options.encrypt.enabled && typeof suchdb.options.encrypt.key === 'string') {
+          snapshotData = SuchDBEncryption.encrypt(snapshotData, suchdb.options.encrypt.key)
+        }
+
+        if (suchdb.isNode) {
+          suchdb.nodeDriver.fs.writeFileSync(`${config.master}.snapshot.suchdb`, snapshotData)
+        } else {
+          localStorage.setItem(`snapshot_${config.master}`, JSON.stringify(snapshotData))
+        }
+        __log('Successfully created snapshot!')
+      } catch (error) {
+        console.log(error)
+        __emit('error', error)
+      }
+    }
+
+    function __loadSnapshot (options, overwrite) {
+      const config = {
+        master: options.master || `snapshot_${suchdb.options.master || 'suchdb'}`,
+        decrypt: options.decrypt || false,
+        id: options.id || suchdb.generateSID(48)
+      }
+
+      try {
+        overwrite = overwrite || false
+
+        let snapshotData = ''
+
+        if (suchdb.isNode) {
+          snapshotData = suchdb.nodeDriver.fs.readFileSync(`${config.master}.snapshot.suchdb`) || ''
+        } else {
+          snapshotData = localStorage.getItem(`snapshot_${config.master}`) || ''
+        }
+
+        if (config.decrypt && suchdb.options.encrypt.enabled && typeof suchdb.options.encrypt.key === 'string') {
+          snapshotData = SuchDBEncryption.decrypt(snapshotData, suchdb.options.encrypt.key)
+        }
+
+        if (overwrite) {
+          store = JSON.parse(snapshotData)
+        } else {
+          store = Object.assign(store, JSON.parse(snapshotData))
+        }
+      } catch (error) {
+        console.log(error)
+        __emit('error', error)
       }
     }
 
@@ -540,6 +605,29 @@
       __log(`Loading a backup of the database overwrite: ${overwrite}`)
       __emit('loadbackup')
       __loadBackup(overwrite)
+    }
+
+    /**
+    * Create an snapshot of the database
+    * @param {object} options
+    */
+
+    suchdb.snapshot = function (options) {
+      __log('Creating a snapshot of the database...')
+      __emit('snapshot')
+      __snapshot(options)
+    }
+
+    /**
+    * Load an snapshot to the database
+    * @param {object} options
+    * @param {boolean} override
+    */
+
+    suchdb.loadSnapshot = function (options, override) {
+      __log('Loading a snapshot to the database...')
+      __emit('loadsnapshot')
+      __loadSnapshot(options, override)
     }
 
     /**

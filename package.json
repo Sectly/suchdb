@@ -1,6 +1,6 @@
 {
   "name": "@sectly-studios/suchdb",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "An simple, dependency free, require & go node.js and browser database",
   "author": "Sectly@sectly.online",
   "license": "MPL-2.0",

@@ -13,6 +13,7 @@ export function SuchDB(options: any): {
         logging_custom: any;
     };
     isNode: any;
+    generateSID(length: any): string;
     nodeDriver: {
         fs: typeof import("fs");
     };
@@ -121,6 +122,17 @@ export function SuchDB(options: any): {
     * > node-fs
     */
     loadBackup(overwrite: any): void;
+    /**
+    * Create an snapshot of the database
+    * @param {object} options
+    */
+    snapshot(options: object): void;
+    /**
+    * Load an snapshot to the database
+    * @param {object} options
+    * @param {boolean} override
+    */
+    loadSnapshot(options: object, override: boolean): void;
     /**
     * Get Raw Database Data
     */
@@ -165,6 +177,7 @@ declare function Boot(options: any): {
         logging_custom: any;
     };
     isNode: any;
+    generateSID(length: any): string;
     nodeDriver: {
         fs: typeof import("fs");
     };
@@ -273,6 +286,17 @@ declare function Boot(options: any): {
     * > node-fs
     */
     loadBackup(overwrite: any): void;
+    /**
+    * Create an snapshot of the database
+    * @param {object} options
+    */
+    snapshot(options: object): void;
+    /**
+    * Load an snapshot to the database
+    * @param {object} options
+    * @param {boolean} override
+    */
+    loadSnapshot(options: object, override: boolean): void;
     /**
     * Get Raw Database Data
     */
